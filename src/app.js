@@ -98,6 +98,7 @@ app.post("/repositories/:id/like", (request, response) => {
             .json({ error: "Repository to add like not found" });
     }
 
+    likes[likeRespositoryIndex].dateAdded.push(new Date());
     repositories[repositoryIndex].likes += 1;
 
     return response.json(repositories[repositoryIndex]);
