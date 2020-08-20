@@ -84,6 +84,25 @@ app.delete("/repositories/:id", (request, response) => {
     return response.status(204).send();
 });
 
+app.post("/repositories/:id/like", (request, response) => {
+    const { repositoryIndex } = request;
+    const { id } = request.params;
+
+    const likeRespositoryIndex = likes.findIndex(
+        (repository) => repository.id === id
+    );
+
+    if (likeRespositoryIndex < 0) {
+        return response
+            .status(400)
+            .json({ error: "Repository to add like not found" });
+    }
+
+    repositories[repositoryIndex].likes += 1;
+
+    return response.json(repositories[repositoryIndex]);
+});
+
 app.put("/repositories/:id/like", (request, response) => {
     const { repositoryIndex } = request;
     const { id } = request.params;
